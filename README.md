@@ -38,7 +38,7 @@ That's it! You can also directly access the parsed token stream by looking at `m
 
 You can implement/remove it yourself. mrk was designed to be easily extendable:
 
-* Removing a feature
+#### Removing a feature
 
 ```js
 mrk('Visit http://google.com').html() // Visit <a href='http://google.com'>http://google.com</a>
@@ -48,12 +48,12 @@ delete mrk.patterns.autolink // See mrk.js for other patterns/features you can r
 mrk('Visit http://google.com').html() // Visit http://google.com
 ```
 
-* Adding a new parse rule
+#### Adding a new parse rule
 
 Say we wanted to add `~~strikethrough~~` text, GFM-style:
 
 ```js
-mrk.patterns.strikethroughStart = ({ read, has }) {
+mrk.patterns.strikethroughStart = ({ read, has }) => {
   // If this function returns a truthy value, it will be parsed as a strikethroughStart token
   // See mrk.js for how `read` and `has` work, plus other functions you get access to.
 
@@ -61,7 +61,7 @@ mrk.patterns.strikethroughStart = ({ read, has }) {
     && !has('strikethroughStart', 'strikethroughEnd') // Not already strikethrough!
 }
 
-mrk.patterns.strikethroughEnd= ({ read, has }) {
+mrk.patterns.strikethroughEnd = ({ read, has }) => {
   return read(2) === '~~' // Next 2 characters should be `~~`
     && has('strikethroughStart', 'strikethroughEnd') // Must have a strikethroughStart before this token
 }
