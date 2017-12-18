@@ -1,0 +1,134 @@
+<!doctype html>
+<meta charset='utf-8'>
+<title> 🗒️ mrk </title>
+
+<style>
+
+body, html {
+  margin: 0;
+  padding: 0;
+  color: #232323;
+  font: 19px 'Cantarell', -apple-system, 'Roboto', 'Ubuntu', 'Helvetica Neue', sans-serif;
+}
+
+header, footer {
+  padding: 2em;
+  text-align: center;
+}
+
+header {
+  border-bottom: 1px solid #eee;
+}
+
+footer {
+  opacity: .5;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+a {
+  color: #8a8a8a;
+}
+
+.links {
+  color: #8a8a8a;
+}
+
+.links a {
+  margin: 1em;
+}
+
+.container {
+  margin: 0 auto;
+  width: 700px;
+}
+
+main {
+  line-height: 1.7;
+  color: #444;
+}
+
+ul {
+  margin-left: -2em;
+}
+
+article {
+  margin: 1.4em 0;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+}
+
+#input {
+  flex: 1;
+
+  border: 1px solid #eee;
+  border-radius: 3px;
+  background: white;
+
+  color: inherit;
+  margin-right: .2em;
+  padding: 1em;
+  font: inherit;
+
+  min-height: 100px;
+}
+
+#output {
+  flex: 1;
+  padding: 1em;
+  margin-left: .2em;
+}
+
+</style>
+
+<script src='mrk.js'></script>
+
+<header class='container'>
+  <h1> 🗒️ mrk </h1>
+  <h3> The happy little extendable markdown parser </h3>
+
+  <div class='links'>
+    <a href='https://github.com/heyitsmeuralex/mrk'>Get it</a>
+  </div>
+</header>
+
+<main class='container'>
+
+  <p> mrk is an easily extendable markdown parser created for <a href='https://github.com/towerofnix/decent'>Decent</a>. We needed it
+      for a few reasons: </p>
+
+  <ul class='reasons'>
+    <li> We didn't want to have to bring in an <b>npm</b> module or do anything fancy to use it </li>
+    <li> We needed to be able to <b>disable features</b> and add new ones </li>
+    <li> We wanted access to the parsed <b>token stream</b> </li>
+    <li> We wanted something small, simple, and <b>easy to extend</b> </li>
+  </ul>
+
+  <p> Try it below, or <a href='https://github.com/heyitsmeuralex/mrk'>start using it</a> in a project! </p>
+
+  <article>
+    <textarea id='input' placeholder='Type...' autofocus></textarea>
+    <div id='output'></div>
+  </article>
+
+</main>
+
+<footer>
+  <p> Made by <a href='https://imalex.xyz'>alex</a> </p>
+</footer>
+
+<script>
+
+const input = document.getElementById('input')
+const output = document.getElementById('output')
+
+input.addEventListener('keyup', () => {
+  let html = mrk(input.value).html()
+
+  output.innerHTML = html
+})
+
+</script>

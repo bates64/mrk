@@ -1,0 +1,9 @@
+{
+  "name": "mrk.js",
+  "version": "1.0.0",
+  "description": "The happy little extendable markdown parser",
+  "main": "mrk.js",
+  "repository": "https://github.com/heyitsmeuralex/mrk.git",
+  "author": "alex <16batesa@gmail.com>",
+  "license": "MIT"
+}
