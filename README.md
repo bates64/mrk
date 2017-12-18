@@ -9,6 +9,8 @@
     <a href='https://github.com/heyitsmeuralex/mrk#how-do-i-use-it'>Use it</a>
     |
     <a href='https://heyitsmeuralex.github.io/mrk'>Try it</a>
+    |
+    <a href='https://heyitsmeuralex.github.io/mrk/wiki'>Extensions</a>
   </h3>
 </div>
 
@@ -77,6 +79,10 @@ mrk.htmlify.strikethroughEnd = () => '</s>'
 // :tada:
 mrk('~~hello~~').html() // => <s>hello</s>
 ```
+
+If you end up creating an extension for mrk for your project and it's generic enough,
+[please consider adding it to the list](https://github.com/heyitsmeuralex/mrk/wiki) of
+community extensions for mrk. I'd appreciate it!
 
 ### License
 
