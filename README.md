@@ -10,7 +10,7 @@
     |
     <a href='https://heyitsmeuralex.github.io/mrk'>Try it</a>
     |
-    <a href='https://heyitsmeuralex.github.io/mrk/wiki'>Extensions</a>
+    <a href='https://github.com/heyitsmeuralex/mrk/wiki'>Extensions</a>
   </h3>
 </div>
 
