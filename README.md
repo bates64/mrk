@@ -42,7 +42,7 @@ That's it! You can also directly access the parsed token stream by looking at `m
 Yes!!
 
 ```js
-const mrk = require('mrk/async')
+const mrk = require('mrk.js/async')
 const mark = mrk()
 
 mark('Awesome!').then(parsed => {
