@@ -1,4 +1,4 @@
-const mrk = require('./mrk')
+const mrk = require('./mrk')()
 const inspect = obj => {
   console.log(require('util').inspect(obj, { colors: true, depth: null }))
   return obj

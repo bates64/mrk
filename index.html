@@ -124,11 +124,13 @@ article {
 
 <script>
 
+const mark = mrk()
+
 const input = document.getElementById('input')
 const output = document.getElementById('output')
 
 input.addEventListener('keyup', () => {
-  let html = mrk(input.value).html()
+  let html = mark(input.value).html()
 
   output.innerHTML = html
 })

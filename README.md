@@ -30,11 +30,29 @@ Usage is as follows:
 ```js
 // require('mrk.js') or <script src='mrk.js'></script>
 
-let html = mrk('Some _markdown_').html()
+let mark = mrk()
+let html = mark('Some _markdown_').html()
 console.log(html)
 ```
 
-That's it! You can also directly access the parsed token stream by looking at `mrk(...).tokens`, if you're so inclined.
+That's it! You can also directly access the parsed token stream by looking at `mark(...).tokens`, if you're so inclined.
+
+### Can I haz `Promise`?
+
+Yes!!
+
+```js
+const mrk = require('mrk/async')
+const mark = mrk()
+
+mark('Awesome!').then(parsed => {
+  console.log('tokens:', parsed.tokens)
+
+  return parsed.html()
+}).then(html => {
+  console.log('HTML:', html)
+})
+```
 
 ### I want/to remove Feature X!
 
@@ -43,11 +61,11 @@ You can implement/remove it yourself. mrk was designed to be easily extendable:
 #### Removing a feature
 
 ```js
-mrk('Visit http://google.com').html() // Visit <a href='http://google.com'>http://google.com</a>
+mark('Visit http://google.com').html() // Visit <a href='http://google.com'>http://google.com</a>
 
-delete mrk.patterns.autolink // See mrk.js for other patterns/features you can remove
+delete mark.patterns.autolink // See mrk.js for other patterns/features you can remove
 
-mrk('Visit http://google.com').html() // Visit http://google.com
+mark('Visit http://google.com').html() // Visit http://google.com
 ```
 
 #### Adding a new parse rule
@@ -55,26 +73,35 @@ mrk('Visit http://google.com').html() // Visit http://google.com
 Say we wanted to add `~~strikethrough~~` text, GFM-style:
 
 ```js
-mrk.patterns.strikethroughStart = ({ read, has }) => {
-  // If this function returns a truthy value, it will be parsed as a strikethroughStart token
-  // See mrk.js for how `read` and `has` work, plus other functions you get access to.
+// Pass `mrk()` extensions to patterns, pairs, or htmlify
+const markWithStrikethrough = mrk({
+  extendPatterns: {
+    strikethroughStart: ({ read, has }) => {
+      // If this function returns a truthy value, it will be parsed as a strikethroughStart token
+      // See mrk.js for how `read` and `has` work, plus other functions you get access to.
 
-  return read(2) === '~~' // Next 2 characters should be `~~`
-    && !has('strikethroughStart', 'strikethroughEnd') // Not already strikethrough!
-}
+      return read(2) === '~~' // Next 2 characters should be `~~`
+        && !has('strikethroughStart', 'strikethroughEnd') // Not already strikethrough!
+    },
 
-mrk.patterns.strikethroughEnd = ({ read, has }) => {
-  return read(2) === '~~' // Next 2 characters should be `~~`
-    && has('strikethroughStart', 'strikethroughEnd') // Must have a strikethroughStart before this token
-}
+    strikethroughEnd: ({ read, has }) => {
+      return read(2) === '~~' // Next 2 characters should be `~~`
+        && has('strikethroughStart', 'strikethroughEnd') // Must have a strikethroughStart before this token
+    },
+  },
 
-// If there is a strikethroughStart token on its own without a strikethroughEnd token to be paired
-// to, it will be discarded and parsed as text.
-mrk.pairs.strikethroughStart = 'strikethroughEnd'
+  extendPairs: {
+    // If there is a strikethroughStart token on its own without a strikethroughEnd token to be paired
+    // to, it will be discarded and parsed as text.
+    strikethroughStart: 'strikethroughEnd'
+  },
 
-// Declares how to convert these tokens into HTML strings.
-mrk.htmlify.strikethroughStart = () => '<s>'
-mrk.htmlify.strikethroughEnd = () => '</s>'
+  extendHtmlify: {
+    // Declares how to convert these tokens into HTML strings.
+    strikethroughStart = () => '<s>',
+    strikethroughEnd = () => '</s>'
+  }
+})
 
 // :tada:
 mrk('~~hello~~').html() // => <s>hello</s>
