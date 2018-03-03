@@ -176,6 +176,19 @@
        .replace(/"/g, '&quot;')
        .replace(/'/g, '&#039;')
     }
+    
+    // Force a URL to be safe from schemas which can evaluate scripts
+    mrk.sanitizeURL = url => {
+      url = url.trim()
+      switch (url.toLowerCase().split(/(:|\/\/)/)[0]) {
+        case "http":
+        case "https":
+        case "":
+          return url
+        default:
+          return "http://" + url
+      }
+    }
 
     // Extend mrk by adding functions to the pattern obj, or removing
     // them, or whatever.
@@ -301,7 +314,7 @@
       code: ({ text }) => '<code>' + mrk.escapeHTML(text.substr(1, text.length - 2)) + '</code>',
 
       // [name](href) -> <a>
-      link: ({ metadata }) => `<a href='${mrk.escapeHTML(metadata.href).replace('javascript:', '')}'>${mrk.escapeHTML(metadata.name)}</a>`,
+      link: ({ metadata }) => `<a href='${mrk.sanitizeURL(mrk.escapeHTML(metadata.href))}'>${mrk.escapeHTML(metadata.name)}</a>`,
 
       // autolinked -> <a>
       autolink: ({ text }) => `<a href='${mrk.escapeHTML(text)}'>${mrk.escapeHTML(text)}</a>`,
