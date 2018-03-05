@@ -32,15 +32,30 @@
               readUntil(c, orEnd = false) {
                 // Read until we encounter the character `c`
                 let buf = ''
-
+ 
                 for (let i = index; i < input.length; i++) {
-                  if (input[i] === c) {
-                    index += buf.length
+                    if(c.constructor === String) {
+                      if (input[i] === c) {
+                        index += buf.length
 
-                    return buf
-                  }
+                        return buf
+                      }
+                    } else if (c.constructor === Array) {
+                      if (c.includes(input[i])) {
+                        index += buf.length
 
-                  buf += input[i]
+                        return buf
+                      }
+                    } else if (c.constructor === RegExp) {
+                      if (c.test(input[i])) {
+                        index += buf.length
+
+                        return buf
+                      }
+                    } else {
+                      throw "Firt argument to readUntil must be of type String, Array, or RegExp"
+                    }
+                    buf += input[i]
                 }
 
                 if (orEnd) {
