@@ -27,12 +27,27 @@
               readUntil(c, orEnd = false) {
                 // Read until we encounter the character `c`
                 let buf = ''
-
+ 
                 for (let i = index; i < input.length; i++) {
-                  if (input[i] === c) {
-                    index += buf.length
+                    if(c instanceof String) {
+                      if (input[i] === c) {
+                        index += buf.length
 
-                    return buf
+                        return buf
+                      }
+                    } else if (c instanceof Array) {
+                      if (c.includes(input[i])) {
+                        index += buf.length
+
+                        return buf
+                      }
+                    } else {                      
+                      if (c.test(input[i])) {
+                        index += buf.length
+
+                        return buf
+                      }
+                    }
                   }
 
                   buf += input[i]
