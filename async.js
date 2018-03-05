@@ -282,8 +282,8 @@
         if (read(1) !== 's') rewind(1)
         if (read(3) !== '://') return
 
-        // Eat everything until a space; we can assume that this is a valid URL
-        readUntil(' ', true)
+        // Eat everything until a whitespace; we can assume that this is a valid URL
+        readUntil(/\s/, true)
 
         return true
       },
