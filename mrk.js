@@ -29,28 +29,28 @@
                 let buf = ''
  
                 for (let i = index; i < input.length; i++) {
-                    if(c instanceof String) {
+                    if(c.constructor === String) {
                       if (input[i] === c) {
                         index += buf.length
 
                         return buf
                       }
-                    } else if (c instanceof Array) {
+                    } else if (c.constructor === Array) {
                       if (c.includes(input[i])) {
                         index += buf.length
 
                         return buf
                       }
-                    } else {                      
+                    } else if (c.constructor === RegExp) {
                       if (c.test(input[i])) {
                         index += buf.length
 
                         return buf
                       }
+                    } else {
+                      throw "Firt argument to readUntil must be of type String, Array, or RegExp"
                     }
-                  }
-
-                  buf += input[i]
+                    buf += input[i]
                 }
 
                 if (orEnd) {
