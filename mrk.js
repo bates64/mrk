@@ -27,15 +27,30 @@
               readUntil(c, orEnd = false) {
                 // Read until we encounter the character `c`
                 let buf = ''
-
+ 
                 for (let i = index; i < input.length; i++) {
-                  if (input[i] === c) {
-                    index += buf.length
+                    if(c.constructor === String) {
+                      if (input[i] === c) {
+                        index += buf.length
 
-                    return buf
-                  }
+                        return buf
+                      }
+                    } else if (c.constructor === Array) {
+                      if (c.includes(input[i])) {
+                        index += buf.length
 
-                  buf += input[i]
+                        return buf
+                      }
+                    } else if (c.constructor === RegExp) {
+                      if (c.test(input[i])) {
+                        index += buf.length
+
+                        return buf
+                      }
+                    } else {
+                      throw "Firt argument to readUntil must be of type String, Array, or RegExp"
+                    }
+                    buf += input[i]
                 }
 
                 if (orEnd) {
@@ -275,8 +290,8 @@
         if (read(1) !== 's') rewind(1)
         if (read(3) !== '://') return
 
-        // Eat everything until a space; we can assume that this is a valid URL
-        readUntil(' ', true)
+        // Eat everything until a whitespace; we can assume that this is a valid URL
+        readUntil(/\s/, true)
 
         return true
       },
