@@ -1,7 +1,7 @@
 <h1 align='center'> 🗒️ mrk </h1>
 
 <div align='center'>
-  <strong> The tiny, extensible markdown parser </strong>
+  <strong> Tiny extensible markdown renderer </strong>
 </div>
 
 <div align='center'>
