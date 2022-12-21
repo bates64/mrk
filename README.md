@@ -1,20 +1,20 @@
 <h1 align='center'> 🗒️ mrk </h1>
 
 <div align='center'>
-  <strong> The happy little extendable markdown parser </strong>
+  <strong> The tiny, extensible markdown parser </strong>
 </div>
 
 <div align='center'>
   <h3>
-    <a href='https://github.com/heyitsmeuralex/mrk#how-do-i-use-it'>Use it</a>
+    <a href='#how-do-i-use-it'>Usage</a>
     |
-    <a href='https://heyitsmeuralex.github.io/mrk'>Try it</a>
+    <a href='https://mrk.nanaian.town'>Try in your browser</a>
     |
-    <a href='https://github.com/heyitsmeuralex/mrk/wiki'>Extensions</a>
+    <a href='https://github.com/nanaian/mrk/wiki'>Extensions</a>
   </h3>
 </div>
 
-mrk is an easily extendable markdown parser created for [Decent](https://github.com/towerofnix/decent). We needed it
+mrk is a tiny, easily-extensible markdown parser created for [Decent](https://github.com/decent-chat/decent). We needed it
 for a few reasons:
 
 * We didn't want to have to bring in an **npm** module or do anything fancy to use it
@@ -108,7 +108,7 @@ mrk('~~hello~~').html() // => <s>hello</s>
 ```
 
 If you end up creating an extension for mrk for your project and it's generic enough,
-[please consider adding it to the list](https://github.com/heyitsmeuralex/mrk/wiki) of
+[please consider adding it to the list](https://github.com/nanaian/mrk/wiki) of
 community extensions for mrk. I'd appreciate it!
 
 ### License
